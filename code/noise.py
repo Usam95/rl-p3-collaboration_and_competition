@@ -10,7 +10,8 @@ class  OrnsteinUhlenbeck:
         self.theta = theta
         self.sigma = sigma
         self.seed = random.seed(seed)
-
+        self.size = size
+        self.reset()
 
     def reset(self):
         """ Reset the internal state (= noise) to mean (mu). """
@@ -19,6 +20,6 @@ class  OrnsteinUhlenbeck:
     def sample(self):
         """ Update internal state and return it as a noise sample. """
         x = self.state
-        dx = self.theta * (self.mu - x) + self.sigma * np.array([random.random() for i in range(len(x))])
+        dx = self.theta * (self.mu - x) + self.sigma * np.random.standard_normal(self.size)
         self.state = x + dx
         return self.state
